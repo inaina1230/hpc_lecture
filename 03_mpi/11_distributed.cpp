@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
   for(int irank=0; irank<size; irank++) {
     //MPI_Send(jbody, N/size, MPI_BODY, send_to, 0, MPI_COMM_WORLD);
     //MPI_Recv(jbody, N/size, MPI_BODY, recv_from, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    
+   
     Body recv[N/size];
     for(int i=0;i<N/size;i++){
       recv[i] = jbody[i];
