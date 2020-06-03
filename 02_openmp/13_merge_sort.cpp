@@ -29,7 +29,11 @@ void merge_sort(std::vector<T>& vec, int begin, int end) {
     merge_sort(vec, begin, mid);
 #pragma omp task shared(vec)
     merge_sort(vec, mid+1, end);
+<<<<<<< HEAD
 #pragma omp taskwait    
+=======
+#pragma omp taskwait
+>>>>>>> f743798ff25f63cf544466b630c34b35525ca76f
     merge(vec, begin, mid, end);
   }
 }
@@ -44,8 +48,13 @@ int main() {
   printf("\n");
 #pragma omp parallel
   {
+<<<<<<< HEAD
 #pragma omp single 
     merge_sort(vec, 0, n-1);
+=======
+#pragma omp serial
+  merge_sort(vec, 0, n-1);
+>>>>>>> f743798ff25f63cf544466b630c34b35525ca76f
   }
   for (int i=0; i<n; i++) {
     printf("%d ",vec[i]);
