@@ -63,6 +63,7 @@ struct block_task
     {
         /// Number of threads in each thread block (blockDim.x)
         BlockThreads = 64,
+	
 
         /// Extent of thread tile in value_t along M-axis
         ThreadItemsY = 8,
@@ -100,7 +101,7 @@ struct block_task
         BlockItemsK = 8,
 
         /// Whether to halve synchronization overhead at the expense of doubled shared memory and addressing overhead
-        UseDoubleScratchTiles = false,
+        //UseDoubleScratchTiles = false,
 
         /// Extent of block-wide A|B tiles in dp_vector_t along the K-axis
         BlockDpVectorsK = divide_assert<BlockItemsK, DpVectorItems>::value,
@@ -210,8 +211,8 @@ struct block_task
     struct scratch_storage_t
     {
         /// Prefetch pages
-        page_storage_t pages[UseDoubleScratchTiles ? 2 : 1];
-
+        //page_storage_t pages[UseDoubleScratchTiles ? 2 : 1];
+	page_storage_t pages[1];
         /// Accumulator shared scratch
         typename thread_accumulator_t::scratch_storage_t accum_scratch;
     };
@@ -486,19 +487,20 @@ struct block_task
             // Last strip commits global prefetch for next tile
             if ((tile_offset_k == BlockDpVectorsK - 1) && DoGlobalPrefetch)
             {
-                // If not using two pages of scratch tiles, protect the above prefetch loads from the committing writes below
-                if (!UseDoubleScratchTiles)
-                    __syncthreads();
+                //If not using two pages of scratch tiles, protect the above prefetch loads from the committing writes below
+                //if (!UseDoubleScratchTiles)
+                   // __syncthreads();
 
                 // If using two pages of scratch tiles, switch to next page before writing
-                if (UseDoubleScratchTiles)
-                {
-                    page_idx = (page_idx ? 0 : 1);
-                }
+                //if (UseDoubleScratchTiles)
+                //{
+                	//page_idx = 0;
+			//page_idx = (page_idx ? 0 : 1);
+                //}
 
                 // Commit global prefetch data to scratch page
-                loader_a.commit(scratch->pages[page_idx].block_a);
-                loader_b.commit(scratch->pages[page_idx].block_b);
+                loader_a.commit(scratch->pages[0].block_a);
+                loader_b.commit(scratch->pages[0].block_b);
 
                 __syncthreads();
             }
