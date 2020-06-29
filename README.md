@@ -1,4 +1,22 @@
-20M30841  
+20M30841 
+
+最終課題はFinalReportディレクトリの中にある。
+C_base.cppは2D Navier-StokesのパイソンのコードをC++に書き直したものである。
+また、OpenMP.cppはOpenMPを用いて並列化したプログラム、
+OpenACC.cppはOpenACCを用いて並列化したプログラム、
+MPI.cppはMPIを用いて並列化を試みたプログラムである。
+C_base.cppとOpenMP.cppとOpenACC.cppは出力を行わないが、u,p,vが求まるためそれを用いて2D Navier-Stokesを
+書ける。
+一方で、MPIを用いての並列化は出力が明らかに異なり、失敗であった。
+
+Codes for final report are in FinalReport directory.
+I rewrited the 2D Navier-Stokes python code in C++ on C_base.cpp.
+OpenMP.cpp was written using OpenMP to parallelize ,and
+OpenACC.cpp was written using OpenACC.
+These programs don't output to standard output,but we can reproduce 2D Navier-Stokes 
+to use u,p,v in programs.
+I tried to parallelize code using MPI on MPI.cpp, but I couldn't solve this problem.
+ 
 # hpc_lecture
 
 |          | Topic                                | Sample code               |
