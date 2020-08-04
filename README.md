@@ -1,5 +1,3 @@
-20M30841 
-
 最終課題はFinalReportディレクトリの中にある。
 C_base.cppは2D Navier-StokesのパイソンのコードをC++に書き直したものである。
 また、OpenMP.cppはOpenMPを用いて並列化したプログラム、
